@@ -10,7 +10,7 @@ from presidio_analyzer import (
 )
 from presidio_analyzer.nlp_engine import NlpArtifacts
 
-from .configuration import BERT_DEID_CONFIGURATION
+from docs.samples.python.transformers_recognizer.configuration import BERT_DEID_CONFIGURATION
 
 
 logger = logging.getLogger("presidio-analyzer")
@@ -340,7 +340,8 @@ if __name__ == "__main__":
     from presidio_analyzer.nlp_engine import NlpEngineProvider
     import spacy
 
-    model_path = "obi/deid_roberta_i2b2"
+    # model_path = "obi/deid_roberta_i2b2"
+    model_path ="/home/elvin/NAS-Disk-1/WGA/models/deid_roberta_i2b2"
     supported_entities = BERT_DEID_CONFIGURATION.get(
         "PRESIDIO_SUPPORTED_ENTITIES")
     transformers_recognizer = TransformersRecognizer(model_path=model_path,
@@ -367,7 +368,7 @@ if __name__ == "__main__":
 
     analyzer = AnalyzerEngine(registry=registry, nlp_engine=nlp_engine)
 
-    sample = "My name is John and I live in NY"
+    sample = "Physician Discharge Summary Admit date: 10/12/1982 Discharge date: 10/22/1982 Patient Information Jack Reacher, 54 y.o. male (DOB = 1/21/1928) ..."
     results = analyzer.analyze(sample, language="en",
                                return_decision_process=True,
                                )
