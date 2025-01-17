@@ -1,0 +1,36 @@
+supported_languages:
+  - zh
+default_score_threshold: 0.85
+
+nlp_configuration:
+  nlp_engine_name: spacy
+  models:
+    - lang_code: zh
+      model_name: zh_core_web_sm
+  ner_model_configuration:
+    model_to_presidio_entity_mapping:
+      PER: PERSON
+      LOC: LOCATION
+      GPE: LOCATION
+      ORG: ORGANIZATION
+      DATE: DATE_TIME
+      TIME: DATE_TIME
+    low_confidence_score_multiplier: 0.4
+    low_score_entity_names:
+      - ORGANIZATION
+      - ORG
+    default_score: 0.85
+
+recognizer_registry:
+  global_regex_flags: 26
+  recognizers:
+    - name: ChinesePhoneNumberRecognizer
+      supported_languages:
+        - zh
+      supported_entity: CHINESE_PHONE_NUMBER
+      type: regex
+      patterns:
+        - name: ChinesePhoneNumberPattern
+          regex: "\\b1[3-9][0-9]{9}\\b"
+          score: 0.9
+      description: "识别中国手机号（以1开头，总共11位数字）"
